@@ -44,10 +44,10 @@ cp .env.example .env
 nano .env
 
 # Run the bot
-python -m bot.main
+python -m bot.main```
 
 Docker Deployment
-bash
+```bash
 # Using docker-compose
 docker-compose up -d
 
@@ -55,17 +55,17 @@ docker-compose up -d
 docker build -t music-bot .
 docker run -d --env-file .env music-bot
 ⚙️ Configuration
-Edit the .env file with your credentials:
+Edit the .env file with your credentials:```
 
 env
-API_ID=your_api_id
+```API_ID=your_api_id
 API_HASH=your_api_hash
 BOT_TOKEN=your_bot_token
 MONGO_URI=mongodb://localhost:27017
 REDIS_URL=redis://localhost:6379/0
-OWNER_ID=your_telegram_id
+OWNER_ID=your_telegram_id```
 📚 Commands
-Command	Description
+```Command	Description
 /play <query>	Play or queue a song
 /pause	Pause playback
 /resume	Resume playback
@@ -76,9 +76,9 @@ Command	Description
 /loop	Toggle loop mode
 /volume <0-200>	Adjust volume
 /lyrics	Get lyrics for current song
-/settings	Bot settings (admin)
+/settings	Bot settings (admin)```
 🏗️ Architecture
-text
+```text
 bot/
 ├── main.py           # Entry point
 ├── config.py         # Configuration
@@ -87,9 +87,9 @@ bot/
 ├── player/           # Core player logic
 ├── services/         # External services (YouTube, Spotify)
 ├── ui/              # Keyboards & messages
-└── utils/           # Helper functions
+└── utils/           # Helper functions```
 🔧 Troubleshooting
-Bot doesn't join voice chat:
+```Bot doesn't join voice chat:
 
 Ensure bot has admin permissions
 
@@ -111,32 +111,32 @@ Increase cache size
 
 Limit concurrent downloads
 
-Use Redis for session management
+Use Redis for session management```
 
 📖 Documentation
-For detailed documentation, visit our Wiki.
+```For detailed documentation, visit our Wiki.````
 
 🤝 Contributing
-Contributions are welcome! Please read our Contributing Guide.
+```Contributions are welcome! Please read our Contributing Guide.```
 
 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+```This project is licensed under the MIT License - see the LICENSE file for details.```
 
 🙏 Acknowledgments
-Pyrogram
+```Pyrogram
 
 Py-TgCalls
 
-yt-dlp
+yt-dlp```
 
 📞 Support
-Telegram Channel: @yourchannel
+```Telegram Channel: @yourchannel
 
 Issues: GitHub Issues
 
 text
 
-### 📄 **deploy.sh**
+### 📄 **deploy.sh**```
 ```bash
 #!/bin/bash
 
