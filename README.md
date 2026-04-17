@@ -450,17 +450,35 @@ User Command → Handler → Service → Player → Voice Chat
      ↓
   Downloader → yt-dlp → FFmpeg → Audio Stream
 ```
-### Technology Stack
-Layer	Technology	Purpose
-Bot Framework	Pyrogram 2.3+	Telegram MTProto API
-Voice Calls	Py-TgCalls 2.0+	Voice chat streaming
-Media Download	yt-dlp	Audio extraction
-Database	MongoDB + Motor	Persistent storage
-Cache	Redis 5.0+	Queue & session cache
-Audio Processing	FFmpeg	Format conversion & filters
-Async Runtime	asyncio + uvloop	High-performance async
-HTTP Client	aiohttp	Async HTTP requests
-Image Processing	Pillow	Thumbnail generation
+## 🧱 Technology Stack
+
+<div align="center">
+
+| Layer | Technology | Purpose |
+|------|-----------|--------|
+| 🤖 **Bot Framework** | ![Pyrogram](https://img.shields.io/badge/Pyrogram-2.3+-blue?logo=telegram) | Telegram MTProto API |
+| 🎙 **Voice Calls** | ![PyTgCalls](https://img.shields.io/badge/PyTgCalls-2.0+-purple?logo=webrtc) | Voice chat streaming |
+| 📥 **Media Download** | ![yt-dlp](https://img.shields.io/badge/yt--dlp-latest-red?logo=youtube) | Audio extraction |
+| 🗄 **Database** | ![MongoDB](https://img.shields.io/badge/MongoDB-green?logo=mongodb) + ![Motor](https://img.shields.io/badge/Motor-async-lightgrey) | Persistent storage |
+| ⚡ **Cache** | ![Redis](https://img.shields.io/badge/Redis-5.0+-red?logo=redis) | Queue & session cache |
+| 🎛 **Audio Processing** | ![FFmpeg](https://img.shields.io/badge/FFmpeg-black?logo=ffmpeg) | Format conversion & filters |
+| 🚀 **Async Runtime** | ![asyncio](https://img.shields.io/badge/asyncio-core-blue) + ![uvloop](https://img.shields.io/badge/uvloop-fast-green) | High-performance async |
+| 🌐 **HTTP Client** | ![aiohttp](https://img.shields.io/badge/aiohttp-async-blue) | Async HTTP requests |
+| 🖼 **Image Processing** | ![Pillow](https://img.shields.io/badge/Pillow-image-yellow) | Thumbnail generation |
+
+</div>
+
+---
+
+### 🔥 Why This Stack?
+
+- ⚡ **Ultra-fast async performance** using `asyncio + uvloop`
+- 🎧 **Real-time streaming** optimized with `Py-TgCalls`
+- 📦 **Scalable architecture** with `MongoDB + Redis`
+- 🎛 **Professional audio pipeline** powered by `FFmpeg`
+- 🚀 **Production-ready ecosystem** with caching + persistence
+
+---
 🚢 Deployment
 VPS Deployment
 Option 1: Automatic Deployment Script
