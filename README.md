@@ -479,10 +479,15 @@ User Command → Handler → Service → Player → Voice Chat
 - 🚀 **Production-ready ecosystem** with caching + persistence
 
 ---
-🚢 Deployment
-VPS Deployment
-Option 1: Automatic Deployment Script
-bash
+## 🚢 Deployment
+
+### 🖥️ VPS Deployment
+
+#### ⚡ Option 1: Automatic Deployment Script
+
+Quick and easy setup using a script:
+
+```bash
 # Download deployment script
 wget https://raw.githubusercontent.com/yourusername/telegram-vc-music-bot/main/deploy.sh
 
@@ -491,8 +496,10 @@ chmod +x deploy.sh
 
 # Run deployment
 ./deploy.sh
-Option 2: Manual VPS Setup (Ubuntu 22.04)
-bash
+```
+#### 🛠️ Option 2: Manual VPS Setup (Ubuntu 22.04)
+
+```bash
 # 1. Update system
 sudo apt update && sudo apt upgrade -y
 
@@ -518,9 +525,14 @@ nano .env  # Edit with your credentials
 
 # 7. Create systemd service
 sudo nano /etc/systemd/system/telegram-music-bot.service
-Systemd Service File:
+```
+### ⚙️ Systemd Service File
 
-ini
+Create the service file:
+
+```bash
+sudo nano /etc/systemd/system/telegram-music-bot.service
+```
 [Unit]
 Description=Telegram VC Music Bot
 After=network.target mongodb.service redis-server.service
@@ -539,39 +551,66 @@ StandardError=append:/home/ubuntu/telegram-vc-music-bot/logs/error.log
 
 [Install]
 WantedBy=multi-user.target
-bash
-# 8. Start the service
+### ▶️ Start & Verify Service
+```bash
+8️⃣ Start the Service
+
+
 sudo systemctl daemon-reload
 sudo systemctl enable telegram-music-bot
 sudo systemctl start telegram-music-bot
 
-# 9. Check status
+9️⃣ Check Status & Logs
+
+# Check service status
 sudo systemctl status telegram-music-bot
+
+# View live logs
 sudo journalctl -u telegram-music-bot -f
-Cloud Platforms
-Deploy on Render
-Fork the repository to your GitHub account
+```
 
-Go to Render and create account
+## ☁️ Cloud Platforms
 
-Click "New +" → "Web Service"
+### 🚀 Deploy on Render
 
-Connect your GitHub repository
+Follow these steps to deploy your bot on Render:
 
-Configure:
+#### 1️⃣ Fork Repository
+- Fork this repository to your GitHub account
 
-Name: telegram-music-bot
+#### 2️⃣ Create Render Account
+- Go to https://render.com and sign up/login
 
-Environment: Docker
+#### 3️⃣ Create New Service
+- Click **"New +" → "Web Service"**
 
-Branch: main
+#### 4️⃣ Connect Repository
+- Connect your GitHub account
+- Select your forked repository
 
-Add environment variables from .env.example
+#### 5️⃣ Configure Service
 
-Click "Create Web Service"
+Set the following options:
 
-Deploy on Railway
-bash
+- **Name:** `telegram-music-bot`  
+- **Environment:** `Docker`  
+- **Branch:** `main`  
+
+#### 6️⃣ Environment Variables
+
+Add all required variables from `.env.example`, such as:
+
+```env
+API_ID=your_api_id
+API_HASH=your_api_hash
+BOT_TOKEN=your_bot_token
+SESSION_STRING=your_session
+MONGO_DB_URI=your_mongodb_uri
+REDIS_URL=your_redis_url
+```
+
+### Deploy on Railway
+```bash
 # 1. Install Railway CLI
 npm i -g @railway/cli
 
@@ -593,131 +632,198 @@ railway variables set API_HASH=your_api_hash
 railway up
 Deploy on Koyeb
 Push code to GitHub
+```
 
-Go to Koyeb
+### 🚀 Deploy on Koyeb
 
-Click "Create App"
+Follow these steps to deploy your bot on Koyeb:
 
-Select GitHub repository
+#### 1️⃣ Create Account
+- Go to https://www.koyeb.com and sign up/login
 
-Choose "Docker" as deployment method
+#### 2️⃣ Create App
+- Click **"Create App"**
 
-Add environment variables
+#### 3️⃣ Select Repository
+- Choose your GitHub repository
 
-Deploy
+#### 4️⃣ Deployment Method
+- Select **"Docker"** as the deployment method
 
-Deploy on Heroku (Alternative)
-bash
-# 1. Install Heroku CLI
+#### 5️⃣ Configure Environment Variables
+
+Add all required variables from `.env.example`, such as:
+
+```env
+API_ID=your_api_id
+API_HASH=your_api_hash
+BOT_TOKEN=your_bot_token
+SESSION_STRING=your_session
+MONGO_DB_URI=your_mongodb_uri
+REDIS_URL=your_redis_url
+```
+### 🚀 Deploy on Heroku (Alternative)
+
+Follow these steps to deploy your bot on Heroku:
+
+#### 1️⃣ Install Heroku CLI
+```bash
 curl https://cli-assets.heroku.com/install.sh | sh
-
-# 2. Login
+```
+#### 2️⃣ Login to Heroku
+```bash
 heroku login
-
-# 3. Create app
+```
+#### 3️⃣ Create App
+```bash
 heroku create your-bot-name
-
-# 4. Add buildpacks
+```
+#### 4️⃣ Add Buildpacks
+```bash
 heroku buildpacks:add heroku/python
 heroku buildpacks:add https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
-
-# 5. Add MongoDB addon
+```
+#### 5️⃣ Add Database Addons
+```bash # MongoDB
 heroku addons:create mongodb:sandbox
 
-# 6. Add Redis addon
+# Redis
 heroku addons:create rediscloud:30
-
-# 7. Set environment variables
+```
+#### 6️⃣ Set Environment Variables
+```bash
 heroku config:set API_ID=your_api_id
 heroku config:set API_HASH=your_api_hash
-# ... set all other variables
-
-# 8. Deploy
+heroku config:set BOT_TOKEN=your_bot_token
+heroku config:set SESSION_STRING=your_session
+heroku config:set MONGO_DB_URI=your_mongodb_uri
+heroku config:set REDIS_URL=your_redis_url
+```
+#### 7️⃣ Deploy to Heroku
+```bash
 git push heroku main
-
-# 9. Start worker
+```
+#### 8️⃣ Start Worker
+```bash
 heroku ps:scale worker=1
-🔧 Troubleshooting
-Common Issues and Solutions
-Bot Doesn't Join Voice Chat
-Problem: Bot fails to join voice chat or leaves immediately.
+```
+## 🔧 Troubleshooting
 
-Solutions:
+### ⚠️ Common Issues and Solutions
 
-Ensure bot has admin permissions in the group
+---
 
-Check if voice chat is active
+### 🎧 Bot Doesn't Join Voice Chat
 
-Verify the bot has Manage Voice Chats permission
+**Problem:**  
+Bot fails to join voice chat or leaves immediately.
 
-Check if silence.mp3 exists in the root directory
+**Solutions:**
+- Ensure the bot has **admin permissions** in the group  
+- Check if **voice chat is active**  
+- Verify the bot has **"Manage Voice Chats"** permission  
+- Make sure `silence.mp3` exists in the root directory  
 
-bash
+---
+
+### ❌ Bot Crashes on Start
+
+**Problem:**  
+Bot stops immediately after starting.
+
+**Solutions:**
+- Check logs:
+  ```bash
+  journalctl -u telegram-music-bot -f
+  ```
+
+```bash
 # Generate silence.mp3 if missing
 ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -q:a 9 -acodec libmp3lame silence.mp3
-No Audio Playing
-Problem: Bot joins voice chat but no audio plays.
+```
+### 🔇 No Audio Playing
 
-Solutions:
+**Problem:**  
+Bot joins voice chat but no audio plays.
 
-Check FFmpeg installation:
+**Solutions:**
 
-bash
-ffmpeg -version
-Verify network connectivity to YouTube/Spotify
+- Check FFmpeg installation:
+  ```bash
+  ffmpeg -version
+  ```
 
-Check download directory permissions:
+- Verify network connectivity to YouTube/Spotify
 
-bash
+- Check download directory permissions:
+
+```bash
 chmod 755 downloads
 Check logs for specific errors:
-
-bash
+```
+```bash
 tail -f logs/bot_*.log
-MongoDB Connection Error
-Problem: pymongo.errors.ServerSelectionTimeoutError
+```
+### 🗄️ MongoDB Connection Error
 
-Solutions:
+**Problem:**  
+`pymongo.errors.ServerSelectionTimeoutError`
 
-Ensure MongoDB is running:
+**Solutions:**
 
-bash
-sudo systemctl status mongod
+- Ensure MongoDB is running:
+  ```bash
+  sudo systemctl status mongodb
+  ```
+- Start MongoDB if stopped:
+```bash
 sudo systemctl start mongod
-Check MongoDB URI in .env:
+```
+- Enable MongoDB on boot:
+```bash
+sudo systemctl enable mongodb
+```
+- Check MongoDB URI in .env:
 
-env
+```env
 MONGO_URI=mongodb://localhost:27017
-If using MongoDB Atlas, ensure IP whitelist includes your server
+```
+-If using MongoDB Atlas, ensure IP whitelist includes your server
 
-Redis Connection Error
-Problem: redis.exceptions.ConnectionError
+* Redis Connection Error
+* Problem: redis.exceptions.ConnectionError
 
-Solutions:
+**Solutions:**
 
-Ensure Redis is running:
+- Ensure Redis is running:
 
-bash
+```bash
 sudo systemctl status redis-server
 sudo systemctl start redis-server
-Test Redis connection:
+```
+- Test Redis connection:
 
-bash
+```bash
 redis-cli ping
 # Should return: PONG
-YouTube Download Errors
-Problem: yt-dlp fails to download videos.
+```
+### 📺 YouTube Download Errors
 
-Solutions:
+**Problem:**  
+`yt-dlp` fails to download videos.
 
-Update yt-dlp:
+**Solutions:**
 
-bash
-pip install --upgrade yt-dlp
-Clear cache:
+- Update `yt-dlp`:
+  ```bash
+  pip install --upgrade yt-dlp
+  ```
+- Clear cache:
 
-bash
+```bash
 rm -rf downloads/*
+```
+
 Use cookies file for age-restricted content:
 
 Export cookies from browser
@@ -741,6 +847,7 @@ Limit concurrent downloads in downloader.py
 Use Redis for session management instead of memory
 
 Rate Limiting Issues
+
 Problem: Bot gets rate limited by Telegram.
 
 Solutions:
@@ -862,21 +969,25 @@ Write docstrings for all functions
 Keep functions small and focused
 
 Use async/await properly
+## 🧪 Testing
 
-Testing
-bash
-# Run tests
+Run the following commands to test and maintain code quality:
+
+### ▶️ Run Tests
+```bash
 python -m pytest tests/
-
-# Run linter
+```
+### Run linter 
+```bash
 flake8 bot/
-
-# Type checking
+```
+### Type checking 
+```bash
 mypy bot/
-📄 License
-This project is licensed under the MIT License - see below for details:
+```
+## 📄 License
 
-text
+This project is licensed under the MIT License.
 MIT License
 
 Copyright (c) 2024 Your Name
@@ -898,93 +1009,110 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-🙏 Acknowledgments
-Libraries Used
-Pyrogram - Telegram MTProto API Framework
 
-Py-TgCalls - Voice Chat Library
+## 🙏 Acknowledgments
 
-yt-dlp - YouTube Downloader
+### 📚 Libraries Used
 
-Motor - Async MongoDB Driver
+- **Pyrogram** — Telegram MTProto API Framework  
+- **Py-TgCalls** — Voice Chat Streaming Library  
+- **yt-dlp** — Advanced Media Downloader  
 
-redis-py - Redis Client
+#### 🔄 Async & Database Stack
+- **Motor** — Async MongoDB Driver  
+- **redis-py** — Redis Client for caching & queues  
 
-aiohttp - Async HTTP Client
+#### 🌐 Networking & Processing
+- **aiohttp** — Async HTTP Client  
+- **Pillow** — Image Processing & Thumbnail Generation  
 
-Pillow - Image Processing
+---
 
-Inspiration
-CallsMusic
+### 💡 Inspiration
 
-tgmusicbot
+This project is inspired by the amazing work of:
 
-MusicPlayer
+- **CallsMusic** — Early Telegram VC music bot concept  
+- **tgmusicbot** — Community-driven music bot implementation  
+- **MusicPlayer** — Advanced playback & queue system designs  
 
-📞 Support
-Get Help
-Documentation: Wiki
-
-Issues: GitHub Issues
-
-Discussions: GitHub Discussions
-
-Telegram Channel: @yourchannel
-
-Telegram Group: @yourgroup
-
-Report Bugs
-When reporting bugs, please include:
-
-Bot version
-
-Python version
-
-Operating system
-
-Error logs
-
-Steps to reproduce
-
-Feature Requests
-We love new ideas! Please check existing requests first, then create a new issue with the "enhancement" label.
-
-📊 Stats
-https://img.shields.io/github/stars/yourusername/telegram-vc-music-bot?style=social
-https://img.shields.io/github/forks/yourusername/telegram-vc-music-bot?style=social
-https://img.shields.io/github/issues/yourusername/telegram-vc-music-bot
-https://img.shields.io/github/issues-pr/yourusername/telegram-vc-music-bot
-https://img.shields.io/github/last-commit/yourusername/telegram-vc-music-bot
+---
 
 <div align="center">
-Made with ❤️ for the Telegram community
 
-If this project helped you, please consider giving it a ⭐
+✨ Special thanks to the open-source community for making this possible ✨  
 
-</div> ```
-This is the complete README.md file. You can copy this entire block and save it as README.md in your project root directory. The file includes:
+</div>
 
-Complete feature list
+## 📞 Support & Community
 
-Detailed installation instructions for all platforms
+<div align="center">
 
-Configuration guide with all environment variables
+[![Documentation](https://img.shields.io/badge/📖-Documentation-blue?style=for-the-badge)](https://github.com/yourusername/telegram-vc-music-bot/wiki)
+[![Issues](https://img.shields.io/badge/🐛-Report%20Bug-red?style=for-the-badge)](https://github.com/yourusername/telegram-vc-music-bot/issues)
+[![Discussions](https://img.shields.io/badge/💬-Discussions-green?style=for-the-badge)](https://github.com/yourusername/telegram-vc-music-bot/discussions)
+[![Telegram Channel](https://img.shields.io/badge/📢-Channel-blue?style=for-the-badge&logo=telegram)](https://t.me/yourchannel)
+[![Telegram Group](https://img.shields.io/badge/👥-Community-blue?style=for-the-badge&logo=telegram)](https://t.me/yourgroup)
 
-All commands with examples
+</div>
 
-Architecture overview
+---
 
-Deployment guides for VPS, Docker, and cloud platforms
+### 🛠 Get Help
 
-Comprehensive troubleshooting section
+- 📖 **Documentation** → Wiki  
+- 🐛 **Bug Reports** → GitHub Issues  
+- 💬 **Community Support** → Discussions / Telegram  
 
-FAQ
+---
 
-Contributing guidelines
+### 🐞 Report Bugs
 
-License information
+When reporting bugs, please include:
 
-Support channels
+- 🔹 Bot version  
+- 🔹 Python version  
+- 🔹 Operating system  
+- 🔹 Error logs  
+- 🔹 Steps to reproduce  
 
-The README is designed to be beginner-friendly while containing all the technical details needed for advanced users and production deployment.
+---
 
+### 💡 Feature Requests
+
+We love new ideas 🚀  
+
+- Check existing requests first  
+- Open a new issue with label: `enhancement`  
+
+---
+
+## 📊 Project Stats
+
+<div align="center">
+
+![Stars](https://img.shields.io/github/stars/yourusername/telegram-vc-music-bot?style=for-the-badge&logo=github)
+![Forks](https://img.shields.io/github/forks/yourusername/telegram-vc-music-bot?style=for-the-badge&logo=github)
+![Issues](https://img.shields.io/github/issues/yourusername/telegram-vc-music-bot?style=for-the-badge)
+![Pull Requests](https://img.shields.io/github/issues-pr/yourusername/telegram-vc-music-bot?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/yourusername/telegram-vc-music-bot?style=for-the-badge)
+
+</div>
+
+---
+
+## ❤️ Support the Project
+
+<div align="center">
+
+If this project helped you, consider supporting it:
+
+⭐ Star the repository  
+🍴 Fork and contribute  
+📢 Share with others  
+
+<br>
+
+**Made with ❤️ for the Telegram Community**
+
+</div>
