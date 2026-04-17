@@ -44,9 +44,9 @@ cp .env.example .env
 nano .env
 
 # Run the bot
-python -m bot.main```
+python -m bot.main
 
-Docker Deployment
+###Docker Deployment
 ```bash
 # Using docker-compose
 docker-compose up -d
