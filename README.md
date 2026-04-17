@@ -1,4 +1,4 @@
-# 🎵 Telegram Voice Chat Music Bot
+# 🎵 Telegram Voice Chat VC Music Bot
 
 A production-grade, scalable Telegram music bot for voice chats with support for YouTube, Spotify, and more.
 
